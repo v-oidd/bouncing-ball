@@ -3,7 +3,7 @@ import time
 
 COLUMNS = 40
 ROWS = 15
-DELAY = .02
+DELAY = 0.05
 vector = [1, -1]
 position = [0, 0]
 
