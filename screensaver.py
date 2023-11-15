@@ -36,7 +36,6 @@ class Screen:
         for row in screen:
             print('  '.join(row))
 
-
     def update_vector(self):
         x, y = position
 
@@ -47,7 +46,6 @@ class Screen:
             self.vector[0] *= -1
 
         return self.vector
-
 
 
 screen = [[f'{Colors.BLUE}*{Colors.END}' for _ in range(COLUMNS)] for _ in range(ROWS)]
@@ -62,8 +60,7 @@ try:
 
         vector = ball_screen.update_vector()
 
-        ball_screen.screen[position[1]][position[0]] = f'{
-            Colors.YELLOW}*{Colors.END}'
+        ball_screen.screen[position[1]][position[0]] = f'{Colors.YELLOW}*{Colors.END}'
         position[1] += vector[0]
         position[0] += vector[1]
         ball_screen.screen[position[1]][position[0]] = Ball.BALL
