@@ -25,6 +25,7 @@ class Ball:
     LENGTH = ROWS - 1
     REFRESH_RATE = 1 / VELOCITY
 
+
 class Screen:
     def __init__(self, screen, vector):
         self.screen = screen
@@ -35,43 +36,18 @@ class Screen:
         for row in screen:
             print('  '.join(row))
 
-    # TODO: Simplify update_vector(). Remember that X and Y are negatives of each other
+
     def update_vector(self):
-        if position[0] == Ball.WIDTH:
-            if position[1] == 0:
-                self.vector = [1, -1]
-            elif position[1] == Ball.LENGTH:
-                self.vector = [-1, -1]
-            else:
-                if self.vector == [-1, 1]:
-                    self.vector = [-1, -1]
-                elif self.vector == [1, 1]:
-                    self.vector = [1, -1]
+        x, y = position
 
-        elif position[0] == 0:
-            if position[1] == 0:
-                self.vector = [1, 1]
-            elif position[1] == Ball.LENGTH:
-                self.vector = [-1, 1]
-            else:
-                if self.vector == [-1, -1]:
-                    self.vector = [-1, 1]
-                elif self.vector == [1, -1]:
-                    self.vector = [1, 1]
+        if x == 0 or x == Ball.WIDTH:
+            self.vector[1] *= -1
 
-        elif position[1] == 0:
-            if self.vector == [-1, 1]:
-                self.vector = [1, 1]
-            elif self.vector == [-1, -1]:
-                self.vector = [1, -1]
-
-        elif position[1] == Ball.LENGTH:
-            if self.vector == [1, 1]:
-                self.vector = [-1, 1]
-            elif self.vector == [1, -1]:
-                self.vector = [-1, -1]
+        if y == 0 or y == Ball.LENGTH:
+            self.vector[0] *= -1
 
         return self.vector
+
 
 
 screen = [[f'{Colors.BLUE}*{Colors.END}' for _ in range(COLUMNS)] for _ in range(ROWS)]
@@ -83,10 +59,11 @@ ball_screen.draw()
 
 try:
     while True:
-        
+
         vector = ball_screen.update_vector()
 
-        ball_screen.screen[position[1]][position[0]] = f'{Colors.YELLOW}*{Colors.END}'
+        ball_screen.screen[position[1]][position[0]] = f'{
+            Colors.YELLOW}*{Colors.END}'
         position[1] += vector[0]
         position[0] += vector[1]
         ball_screen.screen[position[1]][position[0]] = Ball.BALL
