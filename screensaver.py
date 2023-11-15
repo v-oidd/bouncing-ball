@@ -7,7 +7,7 @@ possible_vectors = (1, -1)
 
 COLUMNS = 40
 ROWS = 15
-DELAY = .01
+VELOCITY = 100
 vector = [possible_vectors[random.randint(0, 1)], possible_vectors[random.randint(0, 1)]]
 position = [random.randint(0, COLUMNS-1), random.randint(0, ROWS-1)]
 
@@ -23,6 +23,7 @@ class Ball:
     BALL = f'{Colors.RED}X{Colors.END}'
     WIDTH = COLUMNS - 1
     LENGTH = ROWS - 1
+    REFRESH_RATE = 1 / VELOCITY
 
 class Screen:
     def __init__(self, screen, vector):
@@ -34,6 +35,7 @@ class Screen:
         for row in screen:
             print('  '.join(row))
 
+    # TODO: Simplify update_vector(). Remember that X and Y are negatives of each other
     def update_vector(self):
         if position[0] == Ball.WIDTH:
             if position[1] == 0:
@@ -81,7 +83,7 @@ ball_screen.draw()
 
 try:
     while True:
-
+        
         vector = ball_screen.update_vector()
 
         ball_screen.screen[position[1]][position[0]] = f'{Colors.YELLOW}*{Colors.END}'
@@ -91,6 +93,8 @@ try:
 
         ball_screen.draw()
 
-        time.sleep(DELAY)
+        time.sleep(Ball.REFRESH_RATE)
+
 except KeyboardInterrupt:
+    ball_screen.draw()
     print('Ended.')
