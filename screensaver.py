@@ -6,10 +6,6 @@ COLUMNS = 40
 ROWS = 15
 VELOCITY = 50
 
-VECTORS = (1, -1)
-vector = [random.choice(VECTORS), random.choice(VECTORS)]
-position = [random.randint(0, COLUMNS-1), random.randint(0, ROWS-1)]
-
 
 class Colors:
     BLUE = '\033[94m'
@@ -23,6 +19,11 @@ class Ball:
     WIDTH = COLUMNS - 1
     LENGTH = ROWS - 1
     REFRESH_RATE = 1 / VELOCITY
+
+
+VECTORS = (1, -1)
+vector = [random.choice(VECTORS), random.choice(VECTORS)]
+position = [random.randint(0, Ball.WIDTH), random.randint(0, Ball.LENGTH)]
 
 
 class Screen:
