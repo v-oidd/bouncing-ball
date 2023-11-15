@@ -33,8 +33,7 @@ class Screen:
 
     def draw(self):
         os.system('cls' if os.name == 'nt' else 'clear')
-        for row in screen:
-            print('  '.join(row))
+        print('\n'.join('  '.join(row) for row in self.screen))
 
     def update_vector(self):
         x, y = position
