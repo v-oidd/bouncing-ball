@@ -1,11 +1,15 @@
 import time
 import os
+import random
+
+
+possible_vectors = (1, -1)
 
 COLUMNS = 40
 ROWS = 15
 DELAY = .01
-vector = [1, -1]
-position = [0, 0]
+vector = [possible_vectors[random.randint(0, 1)], possible_vectors[random.randint(0, 1)]]
+position = [random.randint(0, COLUMNS-1), random.randint(0, ROWS-1)]
 
 
 class Colors:
