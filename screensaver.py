@@ -80,10 +80,10 @@ try:
 
         vector = ball_screen.update_vector()
 
-        screen[position[1]][position[0]] = f'{Colors.YELLOW}*{Colors.END}'
+        ball_screen.screen[position[1]][position[0]] = f'{Colors.YELLOW}*{Colors.END}'
         position[1] += vector[0]
         position[0] += vector[1]
-        screen[position[1]][position[0]] = Ball.BALL
+        ball_screen.screen[position[1]][position[0]] = Ball.BALL
 
         ball_screen.draw()
 
