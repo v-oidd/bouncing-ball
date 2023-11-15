@@ -4,7 +4,7 @@ import random
 
 COLUMNS = 40
 ROWS = 15
-VELOCITY = 100
+VELOCITY = 50
 
 VECTORS = (1, -1)
 vector = [random.choice(VECTORS), random.choice(VECTORS)]
