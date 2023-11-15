@@ -7,7 +7,7 @@ ROWS = 15
 VELOCITY = 100
 
 VECTORS = (1, -1)
-vector = [VECTORS[random.randint(0, 1)], VECTORS[random.randint(0, 1)]]
+vector = [random.choice(VECTORS), random.choice(VECTORS)]
 position = [random.randint(0, COLUMNS-1), random.randint(0, ROWS-1)]
 
 
