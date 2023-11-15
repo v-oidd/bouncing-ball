@@ -1,5 +1,4 @@
 import time
-import os
 import random
 
 
@@ -32,7 +31,7 @@ class Screen:
         self.vector = vector
 
     def draw(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
+        print("\033c", end="")
         print('\n'.join('  '.join(row) for row in self.screen))
 
     def update_vector(self):
