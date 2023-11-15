@@ -1,13 +1,14 @@
 import time
+import os
 
 COLUMNS = 40
 ROWS = 15
-DELAY = .1
+DELAY = .01
 vector = [1, -1]
 position = [0, 0]
 
 
-class Bcolors:
+class Colors:
     BLUE = '\033[94m'
     RED = '\033[91m'
     YELLOW = '\033[93m'
@@ -15,7 +16,7 @@ class Bcolors:
 
 
 class Ball:
-    BALL = f'{Bcolors.RED}X{Bcolors.END}'
+    BALL = f'{Colors.RED}X{Colors.END}'
     WIDTH = COLUMNS - 1
     LENGTH = ROWS - 1
 
@@ -25,7 +26,7 @@ class Screen:
         self.vector = vector
 
     def draw(self):
-        print('\n')
+        os.system('cls' if os.name == 'nt' else 'clear')
         for row in screen:
             print('  '.join(row))
 
@@ -67,24 +68,24 @@ class Screen:
         return self.vector
 
 
-screen = [[f'{Bcolors.BLUE}*{Bcolors.END}' for _ in range(COLUMNS)] for _ in range(ROWS)]
-board = Screen(screen, vector)
+screen = [[f'{Colors.BLUE}*{Colors.END}' for _ in range(COLUMNS)] for _ in range(ROWS)]
+ball_screen = Screen(screen, vector)
 
-board.screen[position[1]][position[0]] = Ball.BALL
+ball_screen.screen[position[1]][position[0]] = Ball.BALL
 
-board.draw()
+ball_screen.draw()
 
 try:
     while True:
 
-        vector = board.update_vector()
+        vector = ball_screen.update_vector()
 
-        screen[position[1]][position[0]] = f'{Bcolors.YELLOW}*{Bcolors.END}'
+        screen[position[1]][position[0]] = f'{Colors.YELLOW}*{Colors.END}'
         position[1] += vector[0]
         position[0] += vector[1]
         screen[position[1]][position[0]] = Ball.BALL
 
-        board.draw()
+        ball_screen.draw()
 
         time.sleep(DELAY)
 except KeyboardInterrupt:
