@@ -1,5 +1,6 @@
 import time
 import random
+import os
 
 
 COLUMNS = 40
@@ -7,6 +8,7 @@ ROWS = 15
 VELOCITY = 50
 
 
+os.system("")
 class Colors:
     BLUE = '\033[94m'
     RED = '\033[91m'
