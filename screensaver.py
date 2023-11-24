@@ -2,10 +2,11 @@ import time
 import random
 import os
 
-
-COLUMNS = 40
-ROWS = 15
-VELOCITY = 50
+class Settings:
+    COLUMNS = 40
+    ROWS = 15
+    VELOCITY = 50
+    BALL_SYMBOL = 'X'
 
 
 os.system("")
@@ -17,10 +18,10 @@ class Colors:
 
 
 class Ball:
-    BALL = f'{Colors.RED}X{Colors.END}'
-    WIDTH = COLUMNS - 1
-    LENGTH = ROWS - 1
-    REFRESH_RATE = 1 / VELOCITY
+    BALL = f'{Colors.RED}{Settings.BALL_SYMBOL}{Colors.END}'
+    WIDTH = Settings.COLUMNS - 1
+    LENGTH = Settings.ROWS - 1
+    REFRESH_RATE = 1 / Settings.VELOCITY
 
 
 VECTORS = (1, -1)
@@ -49,7 +50,7 @@ class Screen:
         return self.vector
 
 
-screen = [[f'{Colors.BLUE}*{Colors.END}' for _ in range(COLUMNS)] for _ in range(ROWS)]
+screen = [[f'{Colors.BLUE}*{Colors.END}' for _ in range(Settings.COLUMNS)] for _ in range(Settings.ROWS)]
 ball_screen = Screen(screen, vector)
 
 ball_screen.screen[position[1]][position[0]] = Ball.BALL
