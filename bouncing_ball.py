@@ -25,7 +25,7 @@ settings = {
 }
 
 ball = {
-    'ball': f'{settings['ball_color']}{settings['ball_symbol']}{colors['end']}',
+    'ball': (settings['ball_color'] + settings['ball_symbol'] + colors['end']),
     'width': settings['columns'] - 1,
     'length': settings['rows'] - 1,
     'refresh_rate': 1 / settings['velocity']
@@ -38,7 +38,7 @@ trail_colors = [ansi_code for ansi_code in colors.values() if ansi_code not in (
 
 class Screen:
     def __init__(self):
-        self.screen = [[f'{settings['screen_color']}{settings['empty_symbol']}{colors['end']}' for _ in range(settings['columns'])] for _ in range(settings['rows'])]
+        self.screen = [[(settings['screen_color'] + settings['empty_symbol'] + colors['end']) for _ in range(settings['columns'])] for _ in range(settings['rows'])]
         self.seen = [[0 for _ in range(settings['columns'])] for _ in range(settings['rows'])]
         self.vector = [random.choice(VECTORS), random.choice(VECTORS)]
 
@@ -69,7 +69,7 @@ try:
 
         pixel_color = trail_colors[(ball_screen.seen[position[1]][position[0]]) % len(trail_colors)]
 
-        ball_screen.screen[position[1]][position[0]] = f'{pixel_color}{settings['empty_symbol']}{colors['end']}'
+        ball_screen.screen[position[1]][position[0]] = pixel_color + settings['empty_symbol'] + colors['end']
         ball_screen.seen[position[1]][position[0]] += 1
 
         position[1] += vector[0]
