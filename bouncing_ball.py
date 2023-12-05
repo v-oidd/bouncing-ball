@@ -19,7 +19,7 @@ settings = {
     'columns': 40,
     'rows': 15,
     'velocity': 15,
-    'terminal_velocity': 300,
+    'terminal_velocity': 100,
     'acceleration': 1,
     'ball_symbol': '0',
     'empty_symbol': '1',
