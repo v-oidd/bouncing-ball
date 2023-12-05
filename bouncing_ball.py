@@ -18,12 +18,13 @@ settings = {
     'columns': 50,
     'rows': 15,
     'velocity': 15,
-    'acceleration': 0.5,
+    'acceleration': 1,
     'ball_symbol': '0',
     'empty_symbol': '1',
     'ball_color': colors['green'],
     'screen_color': colors['red'],
-    'step': 1
+    'step': 1,
+    'show_velocity': True
 }
 
 ball = {
@@ -46,6 +47,8 @@ class Screen:
     def draw(self):
         print("\033c", end="")
         print('\n'.join('  '.join(row) for row in self.screen))
+        if settings['show_velocity']:
+            print(f'velocity={settings['velocity']}')
 
     def update_vector(self):
         x, y = position
@@ -89,4 +92,4 @@ try:
 
 except KeyboardInterrupt:
     ball_screen.draw()
-    print('Ended.')
+    print('Stopped.')
