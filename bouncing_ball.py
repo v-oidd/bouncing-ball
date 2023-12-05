@@ -18,17 +18,18 @@ settings = {
     'columns': 50,
     'rows': 15,
     'velocity': 15,
+    'acceleration': 0.5,
     'ball_symbol': '0',
     'empty_symbol': '1',
     'ball_color': colors['green'],
-    'screen_color': colors['red']
+    'screen_color': colors['red'],
+    'step': 1
 }
 
 ball = {
     'ball': (settings['ball_color'] + settings['ball_symbol'] + colors['end']),
     'width': settings['columns'] - 1,
     'length': settings['rows'] - 1,
-    'refresh_rate': 1 / settings['velocity']
 }
 
 VECTORS = (1, -1)
@@ -50,9 +51,11 @@ class Screen:
         x, y = position
 
         if x == 0 or x == ball['width']:
+            settings['velocity'] += settings['acceleration']
             self.vector[1] *= -1
 
         if y == 0 or y == ball['length']:
+            settings['velocity'] += settings['acceleration']
             self.vector[0] *= -1
 
         return self.vector
@@ -61,6 +64,8 @@ class Screen:
 ball_screen = Screen()
 ball_screen.screen[position[1]][position[0]] = ball['ball']
 ball_screen.draw()
+
+pixel_count = 0
 
 try:
     while True:
@@ -76,9 +81,11 @@ try:
         position[0] += vector[1]
         ball_screen.screen[position[1]][position[0]] = ball['ball']
 
-        ball_screen.draw()
-
-        time.sleep(ball['refresh_rate'])
+        if pixel_count % settings['step'] == 0:
+            ball_screen.draw()
+            
+        pixel_count += 1
+        time.sleep(1 / settings['velocity'])
 
 except KeyboardInterrupt:
     ball_screen.draw()
