@@ -15,11 +15,11 @@ colors = {
 }
 
 settings = {
-    'columns': 40,
-    'rows': 20,
-    'velocity': 50,
+    'columns': 50,
+    'rows': 15,
+    'velocity': 15,
     'ball_symbol': 'X',
-    'ball_color': colors['white'],
+    'ball_color': colors['green'],
     'screen_color': colors['red']
 }
 
@@ -32,7 +32,7 @@ ball = {
 
 VECTORS = (1, -1)
 position = [random.randint(0, ball['width']), random.randint(0, ball['length'])]
-pixel_colors = [ansi_code for ansi_code in colors.values() if ansi_code not in (settings['ball_color'], settings['screen_color'])] + [settings['screen_color']]
+trail_colors = [ansi_code for ansi_code in colors.values() if ansi_code not in (settings['ball_color'], settings['screen_color'])] + [settings['screen_color']]
 
 
 class Screen:
@@ -66,7 +66,7 @@ try:
 
         vector = ball_screen.update_vector()
 
-        pixel_color = pixel_colors[(ball_screen.seen[position[1]][position[0]]) % len(pixel_colors)]
+        pixel_color = trail_colors[(ball_screen.seen[position[1]][position[0]]) % len(trail_colors)]
 
         ball_screen.screen[position[1]][position[0]] = f'{pixel_color}*{colors['end']}'
         ball_screen.seen[position[1]][position[0]] += 1
