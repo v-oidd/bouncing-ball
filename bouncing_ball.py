@@ -15,7 +15,7 @@ colors = {
 }
 
 settings = {
-    'columns': 50,
+    'columns': 40,
     'rows': 15,
     'velocity': 15,
     'acceleration': 1,
