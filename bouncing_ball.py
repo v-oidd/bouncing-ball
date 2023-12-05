@@ -18,8 +18,8 @@ settings = {
     'columns': 50,
     'rows': 15,
     'velocity': 15,
-    'ball_symbol': 'X',
-    'empty_symbol': 'l',
+    'ball_symbol': '0',
+    'empty_symbol': '1',
     'ball_color': colors['green'],
     'screen_color': colors['red']
 }
