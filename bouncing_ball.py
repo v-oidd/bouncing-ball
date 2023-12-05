@@ -2,6 +2,7 @@ import time
 import random
 import os
 
+
 os.system("")
 
 colors = {
@@ -18,7 +19,8 @@ settings = {
     'columns': 40,
     'rows': 15,
     'velocity': 15,
-    'acceleration': 1,
+    'terminal_velocity': 50,
+    'acceleration': 2,
     'ball_symbol': '0',
     'empty_symbol': '1',
     'ball_color': colors['green'],
@@ -49,16 +51,22 @@ class Screen:
         print('\n'.join('  '.join(row) for row in self.screen))
         if settings['show_velocity']:
             print(f'velocity={settings['velocity']}')
+    
+    def update_velocity(self):
+        if settings['terminal_velocity'] is None or settings['velocity'] < settings['terminal_velocity']:
+            settings['velocity'] += settings['acceleration']
+        else:
+            settings['velocity'] = settings['terminal_velocity']
 
     def update_vector(self):
         x, y = position
 
         if x == 0 or x == ball['width']:
-            settings['velocity'] += settings['acceleration']
+            self.update_velocity()
             self.vector[1] *= -1
 
         if y == 0 or y == ball['length']:
-            settings['velocity'] += settings['acceleration']
+            self.update_velocity()
             self.vector[0] *= -1
 
         return self.vector
