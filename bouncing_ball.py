@@ -50,7 +50,7 @@ class Screen:
         print("\033c", end="")
         print('\n'.join('  '.join(row) for row in self.screen))
         if settings['show_velocity']:
-            print(f'velocity={settings['velocity']}')
+            print(f"velocity={settings['velocity']}")
     
     def update_velocity(self):
         if settings['terminal_velocity'] is None or settings['velocity'] < settings['terminal_velocity']:
