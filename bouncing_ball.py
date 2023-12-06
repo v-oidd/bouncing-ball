@@ -3,7 +3,7 @@ import random
 import os
 
 
-os.system("")
+os.system('color')
 
 colors = {
     'blue': '\033[94m',
