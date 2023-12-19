@@ -1,6 +1,6 @@
-import time
 import random
 import os
+import time
 
 
 os.system('color')
@@ -18,15 +18,20 @@ colors = {
 settings = {
     'columns': 40,
     'rows': 15,
-    'velocity': 15,
-    'terminal_velocity': 100,
+    'velocity': 20,
+    'terminal_velocity': None,
     'acceleration': 1,
     'ball_symbol': '0',
     'empty_symbol': '1',
     'ball_color': colors['green'],
     'screen_color': colors['red'],
     'step': 1,
-    'show_velocity': True
+    'show_velocity': True,
+    'alternating_velocity': {
+        'on': True,
+        'minimum': 15,
+        'maximum': 250
+    }
 }
 
 ball = {
@@ -45,6 +50,7 @@ class Screen:
         self.screen = [[(settings['screen_color'] + settings['empty_symbol'] + colors['end']) for _ in range(settings['columns'])] for _ in range(settings['rows'])]
         self.seen = [[0 for _ in range(settings['columns'])] for _ in range(settings['rows'])]
         self.vector = [random.choice(VECTORS), random.choice(VECTORS)]
+        self.accelerate = True
 
     def draw(self):
         print("\033c", end="")
@@ -53,10 +59,22 @@ class Screen:
             print(f"velocity={settings['velocity']}")
     
     def update_velocity(self):
-        if settings['terminal_velocity'] is None or settings['velocity'] < settings['terminal_velocity']:
-            settings['velocity'] += settings['acceleration']
+        if not settings['alternating_velocity']['on']:
+            if settings['terminal_velocity'] is None or settings['velocity'] < settings['terminal_velocity']:
+                settings['velocity'] += settings['acceleration']
+            else:
+                settings['velocity'] = settings['terminal_velocity']
+
         else:
-            settings['velocity'] = settings['terminal_velocity']
+            if settings['velocity'] >= settings['alternating_velocity']['maximum'] and self.accelerate:
+                self.accelerate = False
+            elif settings['velocity'] <= settings['alternating_velocity']['minimum'] and not self.accelerate or settings['velocity'] == 1:
+                self.accelerate = True
+
+            if self.accelerate:
+                settings['velocity'] += settings['acceleration']
+            else:
+                settings['velocity'] -= settings['acceleration']
 
     def update_vector(self):
         x, y = position
@@ -70,6 +88,18 @@ class Screen:
             self.vector[0] *= -1
 
         return self.vector
+    
+    def pause(self, duration):
+        start_time = time.perf_counter()
+        while True:
+            elapsed_time = time.perf_counter() - start_time
+            remaining_time = duration - elapsed_time
+            if remaining_time <= 0:
+                break
+            if remaining_time > 0.02:
+                time.sleep(max(remaining_time / 2, 0.0001))
+            else:
+                pass
 
 
 ball_screen = Screen()
@@ -95,8 +125,8 @@ try:
         if pixel_count % settings['step'] == 0:
             ball_screen.draw()
             
-        pixel_count += 1
-        time.sleep(1 / settings['velocity'])
+        pixel_count += 1 
+        ball_screen.pause(1 / settings['velocity'])
 
 except KeyboardInterrupt:
     ball_screen.draw()
